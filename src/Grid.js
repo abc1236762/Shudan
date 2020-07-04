@@ -17,6 +17,7 @@ class Grid extends Component {
     let {vertexSize, width, height, xs, ys, hoshis} = this.props
     let halfVertexSize = vertexSize / 2
     let fl = Math.floor
+    let lineErr = vertexSize % 2 === 0 ? 0.5 : 0
 
     return (
       xs.length > 0 &&
@@ -44,8 +45,8 @@ class Grid extends Component {
             key: `h${i}`,
 
             className: 'shudan-gridline shudan-horizontal',
-            x: fl(x) - 0.5,
-            y: fl((2 * i + 1) * halfVertexSize) - 0.5,
+            x: fl(x) - lineErr,
+            y: fl((2 * i + 1) * halfVertexSize) - lineErr,
             width:
               (xs[xs.length - 1] === width - 1
                 ? fl((2 * xs.length - 1) * halfVertexSize - x)
@@ -61,8 +62,8 @@ class Grid extends Component {
             key: `v${i}`,
 
             className: 'shudan-gridline shudan-vertical',
-            x: fl((2 * i + 1) * halfVertexSize) - 0.5,
-            y: fl(y) - 0.5,
+            x: fl((2 * i + 1) * halfVertexSize) - lineErr,
+            y: fl(y) - lineErr,
             width: 1,
             height:
               (ys[ys.length - 1] === height - 1
@@ -78,12 +79,13 @@ class Grid extends Component {
           let j = ys.indexOf(y)
           if (i < 0 || j < 0) return
 
+          let hoshiErr = vertexSize % 2 !== 0 ? 0.5 : 0
           return h('circle', {
             key: [x, y].join('-'),
 
             className: 'shudan-hoshi',
-            cx: fl((2 * i + 1) * halfVertexSize),
-            cy: fl((2 * j + 1) * halfVertexSize),
+            cx: fl((2 * i + 1) * halfVertexSize) + hoshiErr,
+            cy: fl((2 * j + 1) * halfVertexSize) + hoshiErr,
             r: '.1em'
           })
         })
