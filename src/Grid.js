@@ -44,12 +44,12 @@ class Grid extends Component {
             key: `h${i}`,
 
             className: 'shudan-gridline shudan-horizontal',
-            x: fl(x),
-            y: fl((2 * i + 1) * halfVertexSize),
+            x: fl(x) - 0.5,
+            y: fl((2 * i + 1) * halfVertexSize) - 0.5,
             width:
-              xs[xs.length - 1] === width - 1
+              (xs[xs.length - 1] === width - 1
                 ? fl((2 * xs.length - 1) * halfVertexSize - x)
-                : fl(xs.length * vertexSize - x),
+                : fl(xs.length * vertexSize - x)) + 1,
             height: 1
           })
         }),
@@ -61,13 +61,13 @@ class Grid extends Component {
             key: `v${i}`,
 
             className: 'shudan-gridline shudan-vertical',
-            x: fl((2 * i + 1) * halfVertexSize),
-            y: fl(y),
+            x: fl((2 * i + 1) * halfVertexSize) - 0.5,
+            y: fl(y) - 0.5,
             width: 1,
             height:
-              ys[ys.length - 1] === height - 1
+              (ys[ys.length - 1] === height - 1
                 ? fl((2 * ys.length - 1) * halfVertexSize - y)
-                : fl(ys.length * vertexSize - y)
+                : fl(ys.length * vertexSize - y)) + 1
           })
         }),
 
@@ -82,8 +82,8 @@ class Grid extends Component {
             key: [x, y].join('-'),
 
             className: 'shudan-hoshi',
-            cx: fl((2 * i + 1) * halfVertexSize) + 0.5,
-            cy: fl((2 * j + 1) * halfVertexSize) + 0.5,
+            cx: fl((2 * i + 1) * halfVertexSize),
+            cy: fl((2 * j + 1) * halfVertexSize),
             r: '.1em'
           })
         })
